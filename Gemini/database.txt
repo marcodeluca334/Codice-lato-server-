@@ -1,0 +1,27 @@
+-- Creazione del database
+CREATE DATABASE IF NOT EXISTS geminidb;
+
+-- Selezione del database
+USE geminidb;
+
+-- Tabella CATEGORIA
+CREATE TABLE IF NOT EXISTS categoria (
+    id_c INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Tabella TODO
+-- La categoria non è obbligatoria, come suggerito dall'uso del LEFT JOIN
+CREATE TABLE IF NOT EXISTS todo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descrizione VARCHAR(255) NOT NULL,
+    completato BOOLEAN DEFAULT FALSE, -- Usiamo BOOLEAN per lo stato (0 o 1)
+    categoria_id INT, -- Chiave esterna, ammette NULL se non è obbligatoria
+
+    -- Definizione della chiave esterna
+    -- Riferisce al campo id_c della tabella categoria
+    FOREIGN KEY (categoria_id)
+        REFERENCES categoria(id_c)
+        ON DELETE SET NULL -- Se una categoria viene cancellata, l'ID in TODO viene messo a NULL
+        ON UPDATE CASCADE -- Se l'ID di una categoria cambia, si aggiorna anche in TODO
+);
