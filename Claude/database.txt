@@ -1,0 +1,18 @@
+-- Creazione del database
+CREATE DATABASE IF NOT EXISTS claudedb;
+USE claudedb;
+
+-- Tabella CATEGORIA
+CREATE TABLE categoria (
+    id_c INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Tabella TODO
+CREATE TABLE todo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descrizione TEXT NOT NULL,
+    completato BOOLEAN DEFAULT FALSE,
+    categoria INT,
+    FOREIGN KEY (categoria) REFERENCES categoria(id_c) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
