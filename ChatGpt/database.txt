@@ -1,0 +1,21 @@
+-- Creazione del database
+CREATE DATABASE IF NOT EXISTS chatgptdb
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
+
+USE chatgptdb;
+
+-- Tabella delle categorie
+CREATE TABLE categoria (
+    id_c INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+) ENGINE=InnoDB;
+
+-- Tabella dei TODO
+CREATE TABLE todo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descrizione VARCHAR(255) NOT NULL,
+    completato TINYINT(1) NOT NULL DEFAULT 0,
+    id_categoria INT NULL,
+    FOREIGN KEY (id_categoria) REFERENCES categoria(id_c) ON DELETE SET NULL
+) ENGINE=InnoDB;
